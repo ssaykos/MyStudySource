@@ -65,10 +65,10 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 		f_height=600;// 프레임의 높이
 		
 		//클레스 게임프레임에 있던걸 메소드 안으로 옮김
-		me_img = tk.getImage("C:\\Users\\취업반PM\\workspace\\MySource\\src\\ShootingGame\\f15k.jpg");
+		me_img = tk.getImage("C:\\Users\\취업반PM\\git\\MyStudySource\\MySource\\src\\ShootingGame\\f15k.jpg");
 		//f15k.png라는 이미지 불러오기.
 		
-		Missile_img=tk.getImage("J:\\2015-03-09 자바1 김진선\\자바 프로젝트\\MySource\\src\\ShootingGame\\missile.jpg");
+		Missile_img=tk.getImage("C:\\Users\\취업반PM\\git\\MyStudySource\\MySource\\src\\ShootingGame\\Missile.png");
 		//미사일 이미지 불러오기
 	}
 	public void start() {//나중을 위한 기본적인 시작 명령 처리부분
@@ -126,8 +126,11 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 			//미사일 존재유무 확인.
 			
 			ms=(Missile)(Missile_List.get(i));//미사일 위치값 확인
+			
 			buffg.drawImage(Missile_img, ms.pos.x+150, ms.pos.y+30, this);//현재 좌표에 미사일 그리기. // 이미지 크기를 감안한 미사일 발사 좌표는 수정됨
+			
 			ms.move();//그려진 미사일을 정해진 숫자만큼 이동시키기
+			
 			if(ms.pos.x>f_width){//미사일이 화면밖으로 나가면
 				Missile_List.remove(i);//미사일 지우기
 			}
@@ -172,6 +175,7 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 		case KeyEvent.VK_RIGHT:
 			KeyRight=false;
 			break;
+			
 		case KeyEvent.VK_SPACE:
 			KeySpace=false;
 			break;
