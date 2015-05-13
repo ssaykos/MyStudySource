@@ -1,9 +1,15 @@
 package ShootingGame;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;//ArrayList를 위한 임포트 추가
+import java.awt.event.KeyListener;
+import java.util.ArrayList;//ArrayList를 위한 임포트 추가
+
+import javax.swing.JFrame;
+import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 public class AirportGame {
 	public static void main(String[] args) {
@@ -21,23 +27,31 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 	
 	
 	int x,y;//캐릭터의 좌표 변수
+	
 	boolean KeyUp=false;
 	boolean KeyDown=false;
 	boolean KeyLeft=false;
 	boolean KeyRight=false;
 	boolean KeySpace=false;
 	
+	int cnt;
+	
 	Thread th;//스레드 생성
+
 	Toolkit tk=Toolkit.getDefaultToolkit();
 	//이미지를 불러오기 위한 툴킷
 	Image me_img;//내 게임 케릭터 이미지 변수
 	Image Missile_img;//미사일 이미지변수
+	Image Enemy_img;
+	
+	ArrayList Enemy_List= new ArrayList();
 	ArrayList Missile_List=new ArrayList();	
 	
 	Image buffIamge;//더블 버퍼링용
 	Graphics buffg;//더블버퍼링용
 	
 	Missile ms;//미사일 클래스 접근키
+	Enemy en;
 	
 	game_Frame(){//프레임만들기
 		
@@ -46,10 +60,10 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 		
 		setTitle("슈팅게임만들기");//프레임 이름 설정.
 		setSize(f_width,f_height);//프레임 크기를 위의 값에서 가져와 설정
+		
 		Dimension screen=tk.getScreenSize();
 		//프레임이 윈도우에 표시될때 위치를 세팅하기 위해 현재 모니터의 해상도 값을 받아오기.
-		
-		
+				
 		int f_xpos=(int)(screen.getWidth()/2-f_width/2);
 		int f_ypos=(int)(screen.getHeight()/2-f_height/2);
 		//프레임이 모니터 화면 정중앙에 배치하기 위한 좌표값 계산.
@@ -70,10 +84,12 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 		
 		Missile_img=tk.getImage("C:\\Users\\취업반PM\\git\\MyStudySource\\MySource\\src\\ShootingGame\\Missile.png");
 		//미사일 이미지 불러오기
+//		Enemy_img=tk.getImage("C:\\Users\\취업반PM\\git\\MyStudySource\\MySource\\src\\ShootingGame\\enemy.png");
 	}
 	public void start() {//나중을 위한 기본적인 시작 명령 처리부분
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(this);//키보드 이벤트 실행
+		
 		th=new Thread(this);//스레스 생성
 		th.start();//스레스 실행
 	}
@@ -81,13 +97,38 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 		try{//예외옵션 설정으로 에러방지
 			while(true){
 				KeyProcess();
+				EnemyProcess();
 				MissileProcess();//미사일 처리 메소드
+				
 				repaint();
+				
 				Thread.sleep(20);
+				cnt++;
 			}
 		}catch(Exception e){}
 	}
 	
+	private void EnemyProcess() {
+
+		for (int i = 0; i < Enemy_List.size(); ++i) {
+			en= (Enemy)(Enemy_List.get(i));
+			//배열에 적이 생성되어 있을때 해당되는 적을 판별
+			en.move();
+			if(en.x<-200){//적이 화면밖(적이미지 좌표가 화면 밖으로 넘어가면
+				Enemy_List.remove(i);				
+			}
+		}
+		if(cnt%300==0){//루프 카운터 300회 마다
+			en=new Enemy(f_width+100,100);
+			Enemy_List.add(en);
+			//각좌표로 적을 생성한 후 배열에 추가한다
+			en=new Enemy(f_width+100, 300);
+			Enemy_List.add(en);
+			
+			en=new Enemy(f_width+100, 500);
+			Enemy_List.add(en);
+		}
+	}
 	private void MissileProcess() {//미사일 처리 메소드
 		if(KeySpace){//스페이스바 키 상태가 참 이면 
 			ms=new Missile(x,y);//좌표 체크하여 
@@ -111,11 +152,20 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 	public void update(Graphics g) {
 		Draw_Char();
 		
+		Draw_Enemy();
+		
 		Draw_Missile();//그려진 미사일 가져와 실행
 		
-		g.drawImage(me_img, x, y, this);
+		g.drawImage(buffIamge, x, y, this);
 	}
 
+	private void Draw_Enemy() {//적 이미지를 그리는 부분
+		for (int i = 0; i < Enemy_List.size(); ++i) {
+			en=(Enemy)(Enemy_List.get(i));
+			buffg.drawImage(Enemy_img, en.x, en.y, this);
+			//배열에 생성된 각 적을 판별하여 이미지 그리기
+		}
+	}
 	public void Draw_Char() {
 		buffg.clearRect(0, 0, f_width, f_height);
 		buffg.drawImage(me_img, x, y, this);
@@ -185,10 +235,10 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 	//키보드 타이핑 때의 이벤트 처리 하는곳
 	public void KeyProcess() {
 		//실제로 캐릭터 움직임 실현을 위해 위에서 받아들인 키값을 바탕으로 키입력시마다 5만큼씩 이동시킨다.			
-		if(KeyUp==true)y-=5;
-		if(KeyDown==true)y+=5;
-		if(KeyLeft==true)x-=5;
-		if(KeyRight==true)x+=5;
+		if(KeyUp==true)this.y-=5;
+		if(KeyDown==true)this.y+=5;
+		if(KeyLeft==true)this.x-=5;
+		if(KeyRight==true)this.x+=5;
 	}
 
 }
@@ -201,5 +251,16 @@ class Missile{//미사일 위치 파악 및 이동을 위한 클래스 추가
 	
 	public void move(){//미사일 이동을 위한 메소드
 		pos.x+=10;//x좌표에 10 만큼 미사일 이동
+	}
+}
+class Enemy{
+	int x,y;
+	
+	Enemy(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+	public void move(){
+		x-=3;
 	}
 }
