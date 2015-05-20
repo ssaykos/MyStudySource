@@ -7,11 +7,9 @@ public class _5일차_7_1주차_총정리_로또 {
 
 		Scanner scan=new Scanner(System.in);
 		
-		
 		int[] MainLotto=new int [7];
 		int[] CustomLotto=new int [6];
 		int LottoCount=0;
-		
 		
 		while(true)
 		{
