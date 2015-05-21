@@ -47,9 +47,29 @@ public class LottoService {
 		return topMenu;
 	}
 
-	public void lottoPlay(int selectChoice) {
+	public void lottoPlay(int selectChoice,int topMenuSel) {
 		// TODO Auto-generated method stub
-		
+		switch (topMenuSel) {// topMenuSel -> 최상위 메뉴에 대한 값  
+			// selectChoice -> lottoPlayBefore의 안내에 의한 차상위 메뉴 실행에 대한 값. 
+			case 1 :
+				
+				break;
+			case 2 :
+				
+				break;
+			case 3 :
+	
+				break;
+			case 4 :
+	
+				break;
+			case 5 :
+	
+				break;
+
+			default :
+				break;
+		}
 	}
 	
 

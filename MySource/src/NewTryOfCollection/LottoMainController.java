@@ -1,6 +1,5 @@
 package NewTryOfCollection;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LottoMainController {
@@ -40,7 +39,7 @@ public class LottoMainController {
 				while (!sel) {
 					sel=lotto.lottoPlayBefore(topMenuSel);// 선택한 메뉴에 대해 다음 해야 할 행동에 대한 안내.
 					int selectChoice= scanner.nextInt();
-					lotto.lottoPlay(selectChoice);//안내하고 받은 해당 값에 대한 처리.. 졸려서 더 안되겠다 내일 마져 해보도록하자.. 1시부터 2시54분까지의..삽질..
+					lotto.lottoPlay(selectChoice,topMenuSel);//안내하고 받은 해당 값에 대한 처리.. 졸려서 더 안되겠다 내일 마져 해보도록하자.. 1시부터 2시54분까지의..삽질..
 				}
 			} catch (java.util.InputMismatchException e) {
 				// TODO: handle exception
