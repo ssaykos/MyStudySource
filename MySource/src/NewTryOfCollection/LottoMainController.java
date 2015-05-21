@@ -23,7 +23,7 @@ public class LottoMainController {
 			
 			try {//어떤 청개구리 심보의 사용자가 0-5의 숫자로 메뉴를 선택하라는 안내를 무시하고 문자를 집어 넣었을 경우에 대한 에러문 처리. 
 				topMenuSel = scanner.nextInt();
-				boolean sel=true;//0-5의 숫자가 맞는지에 대한 체크를 할때 체크가 통과하면 트루값이 나와서 반복문에 낫연산으로 인해 페일로 바뀌어서 다시 돌지 않도록하는
+				boolean sel=false;//0-5의 숫자가 맞는지에 대한 체크를 할때 체크가 통과하면 트루값이 나와서 반복문에 낫연산으로 인해 페일로 바뀌어서 다시 돌지 않도록하는
 								//반복문의 체크 기능을 담당하는 변수
 				while(!sel){
 					sel=lotto.menuSelectCheck(topMenuSel); // 0-5의 숫자를 사용 하라고 했으나 실수로나 장난으로 다른 숫자를 넣었을 경우에 대한 체크처리.
@@ -36,7 +36,7 @@ public class LottoMainController {
 			}
 			
 			try {
-				boolean sel = true;
+				boolean sel = false;
 				while (!sel) {
 					sel=lotto.lottoPlayBefore(topMenuSel);// 선택한 메뉴에 대해 다음 해야 할 행동에 대한 안내.
 					int selectChoice= scanner.nextInt();
