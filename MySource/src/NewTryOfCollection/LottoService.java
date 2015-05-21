@@ -51,10 +51,16 @@ public class LottoService {
 		// TODO Auto-generated method stub
 		switch (topMenuSel) {// topMenuSel -> 최상위 메뉴에 대한 값  
 			// selectChoice -> lottoPlayBefore의 안내에 의한 차상위 메뉴 실행에 대한 값. 
-			case 1 :
+			case 1 : // 자동로또 // 로또번호를 원하는 갯수만큼 뽑은뒤.해당값을 저장.
+				int[] winLotto = new int[7];
+				for (int i = 0; i < winLotto.length; i++) {
+					 winLotto[i]=(int) ((Math.random()*35)+1);// 6개의 당첨번호와 마지막의 추가번호.
+					 
+				}
+				
 				
 				break;
-			case 2 :
+			case 2 ://수동로또 //
 				
 				break;
 			case 3 :
