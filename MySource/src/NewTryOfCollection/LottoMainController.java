@@ -44,11 +44,6 @@ public class LottoMainController {
 					//메인에 너무 늘어지는 것은 개인적으로 보기 싫다.. 
 					subMenuSelectCheck=lotto.subMenuSelectCheck(selectChoice,topMenuSel);//22일 광주 와서 새벽 4시부터 2시간 삽질..
 					
-					
-					
-					
-					
-					
 				}
 			} catch (java.util.InputMismatchException e) {
 				// TODO: handle exception

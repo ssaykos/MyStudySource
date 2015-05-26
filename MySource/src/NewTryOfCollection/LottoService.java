@@ -56,7 +56,11 @@ public class LottoService {
 			// selectChoice -> lottoPlayBefore의 안내에 의한 차상위 메뉴 실행에 대한 값. 
 			case 1 : // 자동로또 // 로또번호를 원하는 갯수만큼 뽑은뒤.해당값을 저장.
 				int[] winLotto = new int[7];// 이것은 당첨 번호를 담기 위한 
-				int[][] customLotto = new int[selectChoice][6];
+				int[][] customLotto = new int[selectChoice][6];//2015-05-27 짜다보니 생각난건데..셀렉초이스가 0일경우를 생각 안했다..
+																// 셀렉초이스가 0일경우를 대비한 메소드의 분업화 해서만들어야겠다 
+																//윈로또제너레이터 메소드와 유저로또제너레이터 메소드를 만들고 
+																//셀렉초이스가 0일때 1일때 2~30일때 3가지의 경우에 따른 로직을 짜야 할듯하다..
+																//0일경우 인트 0 을 1일경우 배열 2이상 30이하 일경우 써잇는 이중포문을 이용 하도록 해야 할듯 하다..
 				for (int i = 0; i < winLotto.length; i++) {
 					 winLotto[i]=(int) ((Math.random()*35)+1);// 6개의 당첨번호와 마지막의 추가번호.//안내하고 받은 해당 값에 대한 처리.. 졸려서 더 안되겠다 내일 마져 해보도록하자.. 21일 새벽1시부터 2시54분까지의..삽질..
 					 if(i>=1){//로또의 두개이상의 번호가 들어갈경우.
@@ -98,6 +102,35 @@ public class LottoService {
 						}
 					}
 				}
+				// 맵 또는 해쉬맵으로 저장하기 위한 인트형 배열값을 스트링 값으로 변환
+				String winLottoNumber="";
+				for (int i = 0; i < winLotto.length; i++) {
+					winLottoNumber+=winLotto[i];
+					if(i < winLotto.length-1){
+						winLottoNumber+=" / ";
+					}
+				}
+				// 위의 로또번호는 이러나저러나 무조건 한가지여서 제너레이터에 따른 한종류로직을 갖는 윈로또세이브 메소드를 생성하고
+				//아래의 로또번호는 사용자의 요구에 따라서 0/1/2~30 세종류의 제너레이터 결과에 따른 유저로또 세이브 메소드를 생성해야 할듯 하다. 
+				//0 은 [없음] 1은 원포문으로 스트링 2부터는이중포문을 이용한 줄 수에 따른 여러 줄 스트링 값  
+				String userLottoNumber="";
+				for (int i = 0; i < customLotto.length; i++) {
+					for (int j = 0; j < customLotto[selectChoice].length; j++) {
+						userLottoNumber+=customLotto[selectChoice][j];
+						if(j<customLotto[selectChoice].length-1){
+							userLottoNumber+=" / ";
+						}
+						
+					}
+					if(i<customLotto.length-1){
+						userLottoNumber+="/n";
+					}
+				}
+				
+				LottoVO lottoDataBase = new LottoVO();
+				
+				lottoDataBase.winLottoData.put(LottoVO.LOTTOCOUNT, winLottoNumber);
+				lottoDataBase.userLottoData.put(LottoVO.LOTTOCOUNT, userLottoNumber);
 				
 				//여기까지의 포문이 끝났다면 해당 케이스문을 빠져나가 당첨 로또번호가 사라지지 않도록 하는 처리를 해야 한다.
 				//브이오에 저장하는 것을 생각해보도록하자..// 브이오가 정립이 안되서 잠시 보류..22일광주와서 4시부터 2시간동안의 삽질..

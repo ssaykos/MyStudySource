@@ -17,13 +17,19 @@ public class LottoVO {
 //	private int[][] selLotto= new int[30][6];
 	public static int LOTTOCOUNT=0;// 해당 값은 공개 될 값이며,프로그램을 실행될때마다 증가하고.. 프로그램종료..
 	//즉 해당 웹사이트가 무너질 때까지.. 살아남아서 증가되어야 하는 값이다.. 로또가 몇회 추첨 되었는지를 알수 있는 값이다.
-	ArrayList<Integer> winlotto = new ArrayList<Integer>();//정말 콜랙션에 취약하다는걸 알겟다..ㅠ_ㅠ;;
+	//ArrayList<Integer> winlotto = new ArrayList<Integer>();//정말 콜랙션에 취약하다는걸 알겟다..ㅠ_ㅠ;;
 	//위는 로또 당첨 번호에 대해 로또 카운트를 기준으로 값을 7개의 인트형배열변수 셋트씩 가지고 있어야 한다.//21일 새벽삽질..
-	HashMap<Integer, ArrayList<Integer>> winlottoMemory =new HashMap<Integer, ArrayList<Integer>>(?);
+	//HashMap<Integer, ArrayList<Integer>> winlottoMemory =new HashMap<Integer, ArrayList<Integer>>(?);
 	//???????????????????????????????????????????????????????????????//이 바로 위의 한줄 22일 광주새벽4시삽질
-	ArrayList<Integer> customerlotto = new ArrayList<Integer>();//21일 새벽삽질
+	//ArrayList<Integer> customerlotto = new ArrayList<Integer>();//21일 새벽삽질
 	//위는 사용자 로또 번호에 대해 로또 카운트를 기준으로 값을 6개씩 세트로 인트형 이중배열 변수 셋트로 가지고 있어야 한다.
 	//그렇다면 위의 두가지는 어레이 리스트가 맞는가 해쉬맵이 맞는가 맵이 맞는가 그것이 문제이다..아직 
+	//2015-05-27 서비스에서 로또 회차에 따른 카운트와 로또 번호들을 스트링으로 바꾸어 입력받을 생각이다.
+	//그럼 해쉬맵으로 당첨로또 번호와 사용자 로또 번호 두가지로 나누어 저장하면 3/4/5의 기능을 구현 할 수 있을 듯하다.
+	Map<Integer, String> winLottoData = new HashMap<Integer, String>();
+	Map<Integer, String> userLottoData = new HashMap<Integer, String>();
+	
+	
 //	public ArrayList<Integer> getWinlotto() {
 //		return winlotto;
 //	}
