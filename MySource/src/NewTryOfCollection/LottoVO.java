@@ -26,8 +26,8 @@ public class LottoVO {
 	//그렇다면 위의 두가지는 어레이 리스트가 맞는가 해쉬맵이 맞는가 맵이 맞는가 그것이 문제이다..아직 
 	//2015-05-27 서비스에서 로또 회차에 따른 카운트와 로또 번호들을 스트링으로 바꾸어 입력받을 생각이다.
 	//그럼 해쉬맵으로 당첨로또 번호와 사용자 로또 번호 두가지로 나누어 저장하면 3/4/5의 기능을 구현 할 수 있을 듯하다.
-	Map<Integer, String> winLottoData = new HashMap<Integer, String>();
-	Map<Integer, String> userLottoData = new HashMap<Integer, String>();
+	static Map<Integer, String> winLottoData = new HashMap<Integer, String>();
+	static Map<Integer, String> userLottoData = new HashMap<Integer, String>();
 	
 	
 //	public ArrayList<Integer> getWinlotto() {
