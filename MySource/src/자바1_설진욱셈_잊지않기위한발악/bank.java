@@ -12,6 +12,8 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -39,7 +41,7 @@ public class bank {
 class BankData{
 	String CustomerID;//계좌번호
 	String CustomerPassword;//계좌 비밀번호
-	String CustomerName;//계좌주 이름	
+	String CustomerName;//계좌주 이름
 	String JoinDate;//가입 날짜정보
 	String LoginDate;// 계좌에 접속한 날짜정보
 	int CustomerMoney;//계좌 잔액
@@ -48,6 +50,7 @@ class BankData{
 
 class BankFrame extends JFrame implements Runnable{
 
+	
 	//private static final Component NULL = null;
 	int f_width = 700;
 	int f_height = 500;
@@ -67,6 +70,18 @@ class BankFrame extends JFrame implements Runnable{
 	private JPanel p_signup;
 	private JPanel p_manager;*/
 	private Calendar cal;
+//	private Calendar cyear;//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
+//	private Calendar cmonth;
+//	private Calendar cday;
+//	private Calendar ctime;
+//	private Calendar cminute;
+//	private Calendar csecond;
+//	private int nyear=0;
+//	private int nmonth=0;
+//	private int nday=0;
+//	private int ntime=0;
+//	private int nminute=0;
+//	private int nsecond=0;//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
 	/*private BorderLayout out;
 	private BorderLayout in;
 	
@@ -84,8 +99,8 @@ class BankFrame extends JFrame implements Runnable{
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
 		setBounds((int)(screen.getWidth()/2-f_width/2), (int)(screen.getHeight()/2-f_height/2), f_width, f_height);
 		
-		compose_start();
-		event_start();
+		compose();
+		start();
 		
 		setResizable(false);
 		setVisible(true);
@@ -93,26 +108,23 @@ class BankFrame extends JFrame implements Runnable{
 	}
 	
 	
-	private void event_start() {
+	private void event_signup(){// 다른클레스에 들어갈것들..
 		
 	}
-	private void event_signup(){
+	private void event_login(){// 다른클레스에 들어갈것들..
 		
 	}
-	private void event_login(){
+	private void event_moneyinput(){// 다른클레스에 들어갈것들..
 		
 	}
-	private void event_moneyinput(){
-		
-	}
-	private void event_moneyoutput(){
+	private void event_moneyoutput(){// 다른클레스에 들어갈것들..
 	
 	}
-	private void event_moneytrade(){
+	private void event_moneytrade(){// 다른클레스에 들어갈것들..
 		
 	}
 
-	private void compose_start() {
+	private void compose() {
 				
 		gbl = new GridBagLayout();
 		gbc = new GridBagConstraints();
@@ -137,12 +149,15 @@ class BankFrame extends JFrame implements Runnable{
 		login = new JButton("로그인");
 		login.setBounds(420, 300, 140, 50);
 		super.add(login);
-		
 		time = new JLabel("라벨_날짜:"+cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH+1)+"-"+cal.get(Calendar.DATE)+" 시간:"+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND));
+		//time = new JLabel("라벨_날짜:"+this.cyear+"-"+this.cmonth+"-"+this.cday+" 시간:"+this.ctime+":"+this.cminute+":"+this.csecond);//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
+		//time = new JLabel("라벨_날짜:"+this.nyear+"-"+this.nmonth+"-"+this.nday+" 시간:"+this.ntime+":"+this.nminute+":"+this.nsecond);//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
 		time.setBounds(400, 400, 200, 100);
 		super.add(time);
 		
 		t_time= new JTextField("텍스트필드_날짜:"+cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH+1)+"-"+cal.get(Calendar.DATE)+" 시간:"+cal.get(Calendar.HOUR)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND));
+		//t_time= new JTextField("텍스트필드_날짜:"+this.cyear+"-"+this.cmonth+"-"+this.cday+" 시간:"+this.ctime+":"+this.cminute+":"+this.csecond);//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
+		//t_time= new JTextField("텍스트필드_날짜:"+this.nyear+"-"+this.nmonth+"-"+this.nday+" 시간:"+this.ntime+":"+this.nminute+":"+this.nsecond);//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
 		time.setBounds(400, 300, 200, 100);
 		super.add(t_time);
 		
@@ -281,13 +296,22 @@ class BankFrame extends JFrame implements Runnable{
 
 
 	public void start(){
-		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
+//		this.nyear=this.cyear.get(Calendar.YEAR);//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
+//		this.nmonth=this.cmonth.get(Calendar.MONTH);
+//		this.nday=this.cday.get(Calendar.DATE);
+//		this.ntime=this.ctime.get(Calendar.HOUR);
+//		this.nminute=this.cminute.get(Calendar.MINUTE);
+//		this.nsecond=this.csecond.get(Calendar.SECOND);//계속 시간의 카운트가 올라가도록 시도해보려 했으나 실패
+
 		
 	}
+
+
 	
 }

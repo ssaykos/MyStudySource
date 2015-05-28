@@ -135,7 +135,7 @@ class GameFrame extends JFrame implements KeyListener,Runnable{
 	}
 	public void Paint(Graphics g){
 		BuffImage=createImage(FrameWidth, FrameHeight);
-		buffg=BuffImage.getGraphics();
+		BuffGraphic=BuffImage.getGraphics();
 		update(g);
 	}
 
