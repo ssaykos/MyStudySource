@@ -27,8 +27,6 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.text.StyledEditorKit.FontSizeAction;
 
-
-
 public class bank {
 
 	public static void main(String[] args) {

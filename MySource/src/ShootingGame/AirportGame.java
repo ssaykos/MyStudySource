@@ -88,19 +88,22 @@ class game_Frame extends JFrame implements KeyListener, Runnable{
 	}
 	public void start() {//나중을 위한 기본적인 시작 명령 처리부분
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		addKeyListener(this);//키보드 이벤트 실행
 		
 		th=new Thread(this);//스레스 생성
+		
 		th.start();//스레스 실행
+		
 	}
 	public void run() {//스레드가 무한 루프될 부분
 		try{//예외옵션 설정으로 에러방지
 			while(true){
-				KeyProcess();
-				EnemyProcess();
+				KeyProcess();//키 입력
+				EnemyProcess();//적 기체 동작
 				MissileProcess();//미사일 처리 메소드
 				
-				repaint();
+				repaint();//
 				
 				Thread.sleep(20);
 				cnt++;
